@@ -29,5 +29,7 @@ public class Endereco implements Serializable {
     private String cidade;
     private String estado;
     private String cep;
+    private Float latitude;
+    private Float longitude;
 
 }
