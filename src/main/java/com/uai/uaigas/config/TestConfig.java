@@ -10,12 +10,15 @@ import org.springframework.context.annotation.Profile;
 
 import com.uai.uaigas.entities.Combustivel;
 import com.uai.uaigas.entities.Cotacao;
+import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.TipoCombustivel;
 import com.uai.uaigas.entities.Usuario;
+import com.uai.uaigas.entities.enums.PostoStatus;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
 import com.uai.uaigas.repository.CombustivelRepository;
 import com.uai.uaigas.repository.CotacaoRepository;
+import com.uai.uaigas.repository.PostoRepository;
 import com.uai.uaigas.repository.ReclamacaoRepository;
 import com.uai.uaigas.repository.TipoCombustivelRepository;
 import com.uai.uaigas.repository.UsuarioRepository;
@@ -24,6 +27,9 @@ import com.uai.uaigas.repository.UsuarioRepository;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
+	@Autowired
+	private PostoRepository postoRepository;
+	
 	@Autowired
 	private ReclamacaoRepository reclamacaoRepository;
 	
@@ -41,6 +47,12 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO, null);
+		Posto p2 = new Posto(null, "Posto Shell", PostoStatus.INATIVO, null);
+		Posto p3 = new Posto(null, "Posto Petrobras", PostoStatus.BLOQUEADO, null);
+		
+		postoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 
 		Reclamacao r1 = new Reclamacao(null,"Preços incompativeis", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, null);
