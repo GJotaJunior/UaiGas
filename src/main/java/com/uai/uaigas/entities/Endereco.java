@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @Entity
+@Table(name = "tb_endereco")
 public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,12 +29,16 @@ public class Endereco implements Serializable {
     private Long id;
     private String logradouro;
     private Integer numero;
+    private String complemento;
     private String bairro;
     private String cidade;
     private String estado;
     private String cep;
     private Float latitude;
     private Float longitude;
+
+    @OneToOne
+    @JoinColumn(name = "posto_id")
     private Posto posto;
 
 }
