@@ -1,7 +1,6 @@
 package com.uai.uaigas.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class Posto implements Serializable {
     private String descricao;
     private PostoStatus status;
     private Endereco endereco;
-    private List<Reclamacao> reclamacoes;
-    private List<Combustivel> combustiveis;
+//    private List<Reclamacao> reclamacoes;
+//    private List<Combustivel> combustiveis;
 
 }

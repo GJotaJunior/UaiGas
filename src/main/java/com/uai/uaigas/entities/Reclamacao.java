@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
 
@@ -20,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @Entity
+@Table(name = "tb_reclamacao")
 public class Reclamacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +33,9 @@ public class Reclamacao implements Serializable {
     private String descricao;
     private Calendar dataHora;
     private ReclamacaoStatus reclamacaoStatus;
+    
+    @ManyToOne
+    @JoinColumn(name = "posto_id")
     private Posto posto;
 
 }
