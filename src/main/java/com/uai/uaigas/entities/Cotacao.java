@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @Entity
+@Table(name = "tb_cotacao")
 public class Cotacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +30,9 @@ public class Cotacao implements Serializable {
     private Long id;
     private Double preco;
     private Calendar dataHora;
+
+    @ManyToOne
+    @JoinColumn(name = "combustivel_id")
     private Combustivel combustivel;
 
 }

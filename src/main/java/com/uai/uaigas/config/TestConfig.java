@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.uai.uaigas.entities.Combustivel;
+import com.uai.uaigas.entities.Cotacao;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.TipoCombustivel;
 import com.uai.uaigas.entities.Usuario;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
 import com.uai.uaigas.repository.CombustivelRepository;
+import com.uai.uaigas.repository.CotacaoRepository;
 import com.uai.uaigas.repository.ReclamacaoRepository;
 import com.uai.uaigas.repository.TipoCombustivelRepository;
 import com.uai.uaigas.repository.UsuarioRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private CotacaoRepository cotacaoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -64,6 +69,12 @@ public class TestConfig implements CommandLineRunner {
 		Usuario u3 = Usuario.builder().nome("Carlos").email("carlos@gmail.com").senha("123456").admin(false).build();
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
+		
+		Cotacao cot1 = Cotacao.builder().preco(20.0).dataHora(Calendar.getInstance()).combustivel(c3).build();
+		Cotacao cot2 = Cotacao.builder().preco(17.0).dataHora(Calendar.getInstance()).combustivel(c1).build();
+		Cotacao cot3 = Cotacao.builder().preco(19.35).dataHora(Calendar.getInstance()).combustivel(c2).build();
+	
+		cotacaoRepository.saveAll(Arrays.asList(cot1, cot2, cot3));
 	}
 
 }
