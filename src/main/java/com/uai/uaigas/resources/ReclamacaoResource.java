@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +48,8 @@ public class ReclamacaoResource {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
+	 // NAO IMPLEMENTADO DEVIDO A REGRA DE NEGOCIO
+		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).build();
 	}
 	
 	@PutMapping(value = "/{id}")

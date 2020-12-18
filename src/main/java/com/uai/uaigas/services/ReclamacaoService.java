@@ -7,15 +7,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uai.uaigas.dto.ReclamacaoDTO;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.repository.ReclamacaoRepository;
-import com.uai.uaigas.services.exceptions.DatabaseException;
 import com.uai.uaigas.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -55,15 +52,5 @@ public class ReclamacaoService {
 	
 	private void updateData(Reclamacao entity, ReclamacaoDTO dto) {
 		entity.setReclamacaoStatus(dto.getReclamacaoStatus());
-	}
-	
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch(EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
-		} catch(DataIntegrityViolationException e) {
-			throw new DatabaseException(e.getMessage()); 
-		}
 	}
 }
