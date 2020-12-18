@@ -45,11 +45,16 @@ public class ReclamacaoService {
 	public ReclamacaoDTO update(Long id, ReclamacaoDTO dto) {
 		try {
 			Reclamacao entity = repository.getOne(id);
+			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new ReclamacaoDTO(entity);
 		} catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
+	}
+	
+	private void updateData(Reclamacao entity, ReclamacaoDTO dto) {
+		entity.setReclamacaoStatus(dto.getReclamacaoStatus());
 	}
 	
 	public void delete(Long id) {
