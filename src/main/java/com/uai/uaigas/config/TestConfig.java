@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 import com.uai.uaigas.entities.Combustivel;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.TipoCombustivel;
+import com.uai.uaigas.entities.Usuario;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
 import com.uai.uaigas.repository.CombustivelRepository;
 import com.uai.uaigas.repository.ReclamacaoRepository;
 import com.uai.uaigas.repository.TipoCombustivelRepository;
+import com.uai.uaigas.repository.UsuarioRepository;
 
 @Configuration
 @Profile("test")
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CombustivelRepository combustivelRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -53,7 +58,12 @@ public class TestConfig implements CommandLineRunner {
 		
 		combustivelRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-
+		
+		Usuario u1 = Usuario.builder().nome("Jose").email("jose@gmail.com").senha("123456").admin(false).build();
+		Usuario u2 = Usuario.builder().nome("Maria").email("maria@gmail.com").senha("123456").admin(false).build();
+		Usuario u3 = Usuario.builder().nome("Carlos").email("carlos@gmail.com").senha("123456").admin(false).build();
+		
+		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
 	}
 
 }
