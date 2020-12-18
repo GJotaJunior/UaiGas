@@ -26,5 +26,6 @@ public class Cotacao implements Serializable {
     private Long id;
     private Double preco;
     private Calendar dataHora;
+    private Combustivel combustivel;
 
 }
