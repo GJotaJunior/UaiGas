@@ -26,5 +26,6 @@ public class Combustivel implements Serializable {
     private String nome;
     private TipoCombustivel tipo;
     private Cotacao cotacao;
+    private Posto posto;
 
 }

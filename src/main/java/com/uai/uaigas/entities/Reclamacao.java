@@ -29,5 +29,6 @@ public class Reclamacao implements Serializable {
     private String descricao;
     private Calendar dataHora;
     private ReclamacaoStatus reclamacaoStatus;
+    private Posto posto;
 
 }

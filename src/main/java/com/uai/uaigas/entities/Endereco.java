@@ -31,5 +31,6 @@ public class Endereco implements Serializable {
     private String cep;
     private Float latitude;
     private Float longitude;
+    private Posto posto;
 
 }

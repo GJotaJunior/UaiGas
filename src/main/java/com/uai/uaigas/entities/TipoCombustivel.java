@@ -24,5 +24,6 @@ public class TipoCombustivel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
+    private Combustivel combustivel;
 
 }
