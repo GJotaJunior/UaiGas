@@ -23,7 +23,7 @@ public class PostoService {
 	
 	@Autowired
     private PostoRepository repository;
-
+	
     public List<PostoDTO> findAll() {
 	List<Posto> list = repository.findAll();
 	return list.stream().map(e -> new PostoDTO(e)).collect(Collectors.toList());

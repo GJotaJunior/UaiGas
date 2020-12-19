@@ -1,13 +1,19 @@
 package com.uai.uaigas.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uai.uaigas.entities.enums.PostoStatus;
 
 import lombok.AllArgsConstructor;
@@ -15,8 +21,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
 @Entity
@@ -29,14 +35,24 @@ public class Posto implements Serializable {
 	private Long id;
 	private String descricao;
 	private PostoStatus status;
+	
+	@OneToOne(mappedBy = "posto", cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "reclamacao_id")
-//	private List<Reclamacao> reclamacoes;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "combustiveis_id")
-//	private List<Combustivel> combustiveis;
+	@JsonIgnore
+	@Builder.Default
+	@OneToMany(mappedBy = "posto")
+	private List<Reclamacao> reclamacoes = new ArrayList<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "posto")
+	@Builder.Default
+	private List<CombustivelPosto> combustiveis = new ArrayList<>();
+	
+	public Posto(Long id, String descricao, PostoStatus status) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.status = status;
+	}
 }

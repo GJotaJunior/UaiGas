@@ -1,7 +1,10 @@
 package com.uai.uaigas.dto;
 
-import com.uai.uaigas.entities.Endereco;
+import java.util.List;
+
+import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Posto;
+import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.enums.PostoStatus;
 
 import lombok.AllArgsConstructor;
@@ -15,20 +18,18 @@ public class PostoDTO {
 	private Long id;
 	private String descricao;
 	private PostoStatus status;
-	private Endereco endereco;
-//	private List<Reclamacao> reclamacoes;
-//	private List<Combustivel> combustiveis;
+	private List<Reclamacao> reclamacoes;
+	private List<CombustivelPosto> combustiveis;
 
 	public PostoDTO(Posto posto) {
 		this.id = posto.getId();
 		this.descricao = posto.getDescricao();
 		this.status = posto.getStatus();
-		this.endereco = posto.getEndereco();
-//		this.reclamacoes = posto.getReclamacoes();
-//		this.combustiveis = posto.getCombustiveis();
+		this.reclamacoes = posto.getReclamacoes();
+		this.combustiveis = posto.getCombustiveis();
 	}
 
 	public Posto toEntity() {
-		return Posto.builder().id(id).descricao(descricao).status(status).endereco(endereco).build();
+		return Posto.builder().id(id).descricao(descricao).status(status).reclamacoes(reclamacoes).combustiveis(combustiveis).build();
 	}
 }

@@ -43,16 +43,16 @@ public class DBService {
 	private CotacaoRepository cotacaoRepository;
 
 	public void InstantiateDatabase() {
-		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO, null);
-		Posto p2 = new Posto(null, "Posto Shell", PostoStatus.INATIVO, null);
-		Posto p3 = new Posto(null, "Posto Petrobras", PostoStatus.BLOQUEADO, null);
+		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO);
+		Posto p2 = new Posto(null, "Posto Shell", PostoStatus.INATIVO);
+		Posto p3 = new Posto(null, "Posto Petrobras", PostoStatus.BLOQUEADO);
 		
 		postoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 
-		Reclamacao r1 = new Reclamacao(null,"Preços incompativeis", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, null);
-		Reclamacao r2 = new Reclamacao(null,"Preços totalmente errados", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, null);
-		Reclamacao r3 = new Reclamacao(null,"Mal atendimento", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, null);
+		Reclamacao r1 = new Reclamacao(null,"Preços incompativeis", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p1);
+		Reclamacao r2 = new Reclamacao(null,"Preços totalmente errados", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p2);
+		Reclamacao r3 = new Reclamacao(null,"Mal atendimento", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p1);
 
 		reclamacaoRepository.saveAll(Arrays.asList(r1, r2, r3));
 		
