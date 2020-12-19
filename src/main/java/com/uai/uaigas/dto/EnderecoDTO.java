@@ -16,6 +16,7 @@ public class EnderecoDTO implements Serializable {
 	private Long id;
 	private String logradouro;
 	private Integer numero;
+	private String complemento;
 	private String bairro;
 	private String cidade;
 	private String estado;
@@ -29,6 +30,7 @@ public class EnderecoDTO implements Serializable {
 		this.id = endereco.getId();
 		this.logradouro = endereco.getLogradouro();
 		this.numero = endereco.getNumero();
+		this.complemento = endereco.getComplemento();
 		this.bairro = endereco.getBairro();
 		this.estado = endereco.getEstado();
 		this.cep = endereco.getCep();
@@ -38,6 +40,6 @@ public class EnderecoDTO implements Serializable {
 	}
 
 	public Endereco toEntity() {
-		return Endereco.builder().id(id).logradouro(logradouro).numero(numero).bairro(bairro).estado(estado).cep(cep).latitude(latitude).longitude(longitude).posto(posto).build();
+		return Endereco.builder().id(id).logradouro(logradouro).numero(numero).complemento(complemento).bairro(bairro).estado(estado).cep(cep).latitude(latitude).longitude(longitude).posto(posto).build();
 	}
 }

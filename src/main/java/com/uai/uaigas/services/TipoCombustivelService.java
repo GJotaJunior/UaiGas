@@ -45,11 +45,16 @@ public class TipoCombustivelService {
 	public TipoCombustivelDTO update(Long id, TipoCombustivelDTO dto) {
 		try {
 			TipoCombustivel entity = repository.getOne(id);
+			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new TipoCombustivelDTO(entity);
 		} catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
+	}
+	
+	private void updateData(TipoCombustivel entity, TipoCombustivelDTO dto) {
+		entity.setDescricao(dto.getDescricao());
 	}
 	
 	public void delete(Long id) {

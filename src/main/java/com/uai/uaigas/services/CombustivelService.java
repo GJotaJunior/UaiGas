@@ -45,11 +45,16 @@ public class CombustivelService {
 	public CombustivelDTO update(Long id, CombustivelDTO dto) {
 		try {
 			Combustivel entity = repository.getOne(id);
+			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new CombustivelDTO(entity);
 		} catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
+	}
+	
+	private void updateData(Combustivel entity, CombustivelDTO dto) {
+		entity.setNome(dto.getNome());
 	}
 	
 	public void delete(Long id) {

@@ -45,6 +45,7 @@ public class EnderecoService {
 	public EnderecoDTO update(Long id, EnderecoDTO dto) {
 		try {
 			Endereco entity = repository.getOne(id);
+			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new EnderecoDTO(entity);
 		} catch(EntityNotFoundException e) {
@@ -52,6 +53,16 @@ public class EnderecoService {
 		}
 	}
 	
+	private void updateData(Endereco entity, EnderecoDTO dto) {
+		entity.setLogradouro(dto.getLogradouro());
+		entity.setNumero(dto.getNumero());
+		entity.setComplemento(dto.getComplemento());
+		entity.setBairro(dto.getBairro());
+		entity.setCidade(dto.getCidade());
+		entity.setEstado(dto.getEstado());
+		entity.setCep(dto.getCep());
+	}
+
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
