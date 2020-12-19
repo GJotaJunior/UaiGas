@@ -25,7 +25,6 @@ public class CombustivelPostoDTO implements Serializable {
 
 	public CombustivelPostoDTO(CombustivelPosto combustivelPosto) {
 		this.id = combustivelPosto.getId();
-		this.nome = combustivelPosto.getNome();
 		this.tipoCombustivel = combustivelPosto.getTipo();
 		this.combustivel = combustivelPosto.getCombustivel();
 		this.cotacao = combustivelPosto.getCotacao();
@@ -33,6 +32,6 @@ public class CombustivelPostoDTO implements Serializable {
 	}
 
 	public CombustivelPosto toEntity() {
-		return CombustivelPosto.builder().id(id).nome(nome).tipo(tipoCombustivel).cotacao(cotacao).posto(posto).combustivel(combustivel).build();
+		return CombustivelPosto.builder().id(id).tipo(tipoCombustivel).cotacao(cotacao).posto(posto).combustivel(combustivel).build();
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,17 +27,21 @@ public class CombustivelPosto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
 
+	@ManyToOne
 	@JoinColumn(name = "tipo_combustivel_id")
 	private TipoCombustivel tipo;
 
+	@ManyToOne
 	@JoinColumn(name = "combustivel_id")
 	private Combustivel combustivel;
 
-	@JoinColumn(name = "posto_id")
-	private Posto posto;
+	@ManyToOne
+    @JoinColumn(name = "posto_id")
+    private Posto posto;
 
+	@ManyToOne
+    @JoinColumn(name = "cotacao_id")
 	private Cotacao cotacao;
 
 }
