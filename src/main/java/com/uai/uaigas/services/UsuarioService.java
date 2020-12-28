@@ -2,6 +2,7 @@ package com.uai.uaigas.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -24,6 +25,11 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository repository;
+    
+    @Autowired
+    private EmailService emailService;
+    
+    private Random rand = new Random();
 
     public List<UsuarioDTO> findAll() {
 	List<Usuario> list = repository.findAll();
@@ -89,5 +95,37 @@ public class UsuarioService {
     
     private void insertData(Usuario entity) {
 	entity.setAdmin(false);
+    }
+
+    public void sendNewPassword(String email) {
+	Usuario usuario = findByEmail(email).toEntity();
+	if (usuario == null) throw new ResourceNotFoundException(email);
+	
+	String newPassword = newPassword();
+	usuario.setSenha(newPassword);
+	
+	usuario = repository.save(usuario);
+	emailService.sendNewPasswordEmail(usuario, newPassword);
+    }
+    
+    private String newPassword() {
+	char[] vet = new char[6];
+	
+	for (int i = 0; i < vet.length; i++) {
+	    vet[i] = randomChar();
+	}
+	
+	return new String(vet);
+    }
+    
+    private char randomChar() {
+	int opt = rand.nextInt(3);
+	if (opt == 0) { // gera um digito
+	    return (char) (rand.nextInt(10) + 48);
+	} else if (opt == 1) { // gera letra maiuscula
+	    return (char) (rand.nextInt(26) + 65);
+	} else { // gera letra minuscula
+	    return (char) (rand.nextInt(26) + 97);
+	}
     }
 }
