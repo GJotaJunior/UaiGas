@@ -18,14 +18,14 @@ public class UsuarioInsertDTO extends UsuarioDTO {
     }
 
     public UsuarioInsertDTO(Long id, String nome, String email, String fotoUrl, boolean admin, String senha) {
-	super(id, nome, email, fotoUrl, admin);
+	super(id, nome, email, fotoUrl);
 	this.senha = senha;
     }
 
     @Override
     public Usuario toEntity() {
-	return Usuario.builder().id(getId()).nome(getNome()).email(getEmail()).fotoUrl(getFotoUrl()).admin(isAdmin())
-		.senha(senha).build();
+	return Usuario.builder().id(getId()).nome(getNome()).email(getEmail()).fotoUrl(getFotoUrl()).senha(senha)
+		.build();
     }
 
 }

@@ -35,12 +35,29 @@ public class UsuarioService {
 	Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	return new UsuarioDTO(entity);
     }
+    
+    public UsuarioDTO findByEmail(String email) {
+	Optional<Usuario> obj = repository.findByEmail(email);
+	Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(email));
+	return new UsuarioDTO(entity);
+    }
+    
+    public UsuarioDTO findByEmailAndPassword(String email, String password) {
+	Optional<Usuario> obj = repository.findByEmailAndSenha(email, password);
+	Usuario entity = obj.orElseThrow(() -> new DatabaseException("O email e/ou senha não estão corretos!"));
+	return new UsuarioDTO(entity);
+    }
 
     public UsuarioDTO insert(UsuarioInsertDTO dto) {
-	Usuario entity = dto.toEntity();
-	insertData(entity);
-	entity = repository.save(entity);
-	return new UsuarioDTO(entity);
+	Optional<Usuario> obj = repository.findByEmail(dto.getEmail());
+	if (!obj.isPresent()) {
+	    Usuario entity = dto.toEntity();
+	    insertData(entity);
+	    entity = repository.save(entity);
+	    return new UsuarioDTO(entity);
+	} else {
+	    throw new DatabaseException("Email " + dto.getEmail() + " já cadastrado!");
+	}
     }
 
     @Transactional

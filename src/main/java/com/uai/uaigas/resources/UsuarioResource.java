@@ -44,6 +44,12 @@ public class UsuarioResource {
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 	return ResponseEntity.created(uri).body(newDto);
     }
+    
+    @PostMapping(value = "/login")
+    public ResponseEntity<UsuarioDTO> login(@RequestBody UsuarioInsertDTO dto) {
+	UsuarioDTO newDto = service.findByEmailAndPassword(dto.getEmail(), dto.getSenha());
+	return ResponseEntity.ok().body(newDto);
+    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> delete(@PathVariable Long id) {

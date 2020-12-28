@@ -16,17 +16,15 @@ public class UsuarioDTO implements Serializable {
     private String nome;
     private String email;
     private String fotoUrl;
-    private boolean admin;
 
     public UsuarioDTO(Usuario usuario) {
 	this.id = usuario.getId();
 	this.nome = usuario.getNome();
 	this.email = usuario.getEmail();
 	this.fotoUrl = usuario.getFotoUrl();
-	this.admin = usuario.isAdmin();
     }
 
     public Usuario toEntity() {
-	return Usuario.builder().id(id).nome(nome).email(email).fotoUrl(fotoUrl).admin(admin).build();
+	return Usuario.builder().id(id).nome(nome).email(email).fotoUrl(fotoUrl).build();
     }
 }
