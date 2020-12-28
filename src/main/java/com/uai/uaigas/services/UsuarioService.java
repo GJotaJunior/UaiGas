@@ -49,13 +49,12 @@ public class UsuarioService {
     }
 
     public UsuarioDTO insert(UsuarioInsertDTO dto) {
-	Optional<Usuario> obj = repository.findByEmail(dto.getEmail());
-	if (!obj.isPresent()) {
+	try {
 	    Usuario entity = dto.toEntity();
 	    insertData(entity);
 	    entity = repository.save(entity);
 	    return new UsuarioDTO(entity);
-	} else {
+	} catch (Exception e) {
 	    throw new DatabaseException("Email " + dto.getEmail() + " já cadastrado!");
 	}
     }
