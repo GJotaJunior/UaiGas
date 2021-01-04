@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.uai.uaigas.dto.EmailDTO;
 import com.uai.uaigas.dto.UsuarioDTO;
 import com.uai.uaigas.dto.UsuarioInsertDTO;
+import com.uai.uaigas.entities.Usuario;
 import com.uai.uaigas.services.UsuarioService;
 
 @RestController
@@ -41,7 +42,8 @@ public class UsuarioResource {
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> insert(@RequestBody UsuarioInsertDTO dto) {
-	UsuarioDTO newDto = service.insert(dto);
+	Usuario usuario = service.fromDTO(dto);
+	UsuarioDTO newDto = service.insert(usuario);
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 	return ResponseEntity.created(uri).body(newDto);
     }

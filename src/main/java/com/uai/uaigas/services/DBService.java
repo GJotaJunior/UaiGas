@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.uai.uaigas.entities.Combustivel;
@@ -27,7 +28,10 @@ import com.uai.uaigas.repository.UsuarioRepository;
 
 @Service
 public class DBService {
-	
+    
+        @Autowired
+        private BCryptPasswordEncoder pe;
+
 	@Autowired
 	private PostoRepository postoRepository;
 	
@@ -89,9 +93,9 @@ public class DBService {
 		combustivelRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		
-		Usuario u1 = Usuario.builder().nome("Jose").email("jose@gmail.com").senha("123456").admin(false).build();
-		Usuario u2 = Usuario.builder().nome("Maria").email("maria@gmail.com").senha("123456").admin(false).build();
-		Usuario u3 = Usuario.builder().nome("Carlos").email("carlos@gmail.com").senha("123456").admin(false).build();
+		Usuario u1 = Usuario.builder().nome("Jose").email("jose@gmail.com").senha(pe.encode("123456")).admin(false).build();
+		Usuario u2 = Usuario.builder().nome("Maria").email("maria@gmail.com").senha(pe.encode("123456")).admin(false).build();
+		Usuario u3 = Usuario.builder().nome("Carlos").email("carlos@gmail.com").senha(pe.encode("123456")).admin(false).build();
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
 		

@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.uai.uaigas.dto.UsuarioDTO;
@@ -28,6 +29,9 @@ public class UsuarioService {
     
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private BCryptPasswordEncoder pe;
     
     private Random rand = new Random();
 
@@ -54,14 +58,14 @@ public class UsuarioService {
 	return new UsuarioDTO(entity);
     }
 
-    public UsuarioDTO insert(UsuarioInsertDTO dto) {
+    @Transactional
+    public UsuarioDTO insert(Usuario entity) {
 	try {
-	    Usuario entity = dto.toEntity();
 	    insertData(entity);
 	    entity = repository.save(entity);
 	    return new UsuarioDTO(entity);
 	} catch (Exception e) {
-	    throw new DatabaseException("Email " + dto.getEmail() + " já cadastrado!");
+	    throw new DatabaseException("Email " + entity.getEmail() + " já cadastrado!");
 	}
     }
 
@@ -87,6 +91,12 @@ public class UsuarioService {
 	}
     }
     
+    public Usuario fromDTO(UsuarioInsertDTO dto) {
+	Usuario usuario = dto.toEntity();
+	usuario.setSenha(pe.encode(dto.getSenha()));
+	return usuario;
+    }
+    
     private void updateData(Usuario entity, UsuarioDTO dto) {
 	entity.setNome(dto.getNome());
 	entity.setEmail(dto.getEmail());
@@ -95,6 +105,7 @@ public class UsuarioService {
     
     private void insertData(Usuario entity) {
 	entity.setAdmin(false);
+	entity.setId(null);
     }
 
     public void sendNewPassword(String email) {
