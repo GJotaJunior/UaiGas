@@ -24,8 +24,7 @@ public class UsuarioInsertDTO extends UsuarioDTO {
 
     @Override
     public Usuario toEntity() {
-	return Usuario.builder().id(getId()).nome(getNome()).email(getEmail()).fotoUrl(getFotoUrl()).senha(senha)
-		.build();
+	return new Usuario(getId(), getNome(), getEmail(), senha, getFotoUrl());
     }
 
 }

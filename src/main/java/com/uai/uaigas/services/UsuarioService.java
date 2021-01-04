@@ -104,7 +104,6 @@ public class UsuarioService {
     }
     
     private void insertData(Usuario entity) {
-	entity.setAdmin(false);
 	entity.setId(null);
     }
 

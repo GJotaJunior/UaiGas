@@ -25,6 +25,6 @@ public class UsuarioDTO implements Serializable {
     }
 
     public Usuario toEntity() {
-	return Usuario.builder().id(id).nome(nome).email(email).fotoUrl(fotoUrl).build();
+	return new Usuario(id, nome, email, null, fotoUrl);
     }
 }
