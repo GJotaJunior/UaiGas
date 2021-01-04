@@ -29,6 +29,7 @@ public class CombustivelPostoDTO implements Serializable {
 		this.combustivel = combustivelPosto.getCombustivel();
 		this.cotacao = combustivelPosto.getCotacao();
 		this.posto = combustivelPosto.getPosto();
+		this.nome = combustivel.getNome() + " " + tipoCombustivel.getDescricao();
 	}
 
 	public CombustivelPosto toEntity() {

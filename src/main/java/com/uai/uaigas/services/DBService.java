@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uai.uaigas.entities.Combustivel;
+import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Cotacao;
+import com.uai.uaigas.entities.Endereco;
 import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.TipoCombustivel;
 import com.uai.uaigas.entities.Usuario;
 import com.uai.uaigas.entities.enums.PostoStatus;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
+import com.uai.uaigas.repository.CombustivelPostoRepository;
 import com.uai.uaigas.repository.CombustivelRepository;
 import com.uai.uaigas.repository.CotacaoRepository;
+import com.uai.uaigas.repository.EnderecoRepository;
 import com.uai.uaigas.repository.PostoRepository;
 import com.uai.uaigas.repository.ReclamacaoRepository;
 import com.uai.uaigas.repository.TipoCombustivelRepository;
@@ -41,15 +45,29 @@ public class DBService {
 	
 	@Autowired
 	private CotacaoRepository cotacaoRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
+	@Autowired
+	private CombustivelPostoRepository combustivelPostoRepository; 
+	
 	public void InstantiateDatabase() {
 		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO);
 		Posto p2 = new Posto(null, "Posto Shell", PostoStatus.INATIVO);
 		Posto p3 = new Posto(null, "Posto Petrobras", PostoStatus.BLOQUEADO);
 		
 		postoRepository.saveAll(Arrays.asList(p1, p2, p3));
-
-
+		
+		Endereco e1 = Endereco.builder().posto(p1).logradouro("Rua das cachoeiras").numero(475)
+			.bairro("Segismundo").cidade("Uberlandia").estado("MG").build();
+		Endereco e2 = Endereco.builder().posto(p2).logradouro("Rua dos lagos doces").numero(12346)
+			.bairro("Santa Monica").cidade("Uberlandia").estado("MG").build();
+		Endereco e3 = Endereco.builder().posto(p3).logradouro("Av Belarmino").numero(546)
+			.bairro("Santa Monica").cidade("Uberlandia").estado("MG").build();
+		
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
+			
 		Reclamacao r1 = new Reclamacao(null,"Preços incompativeis", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p1);
 		Reclamacao r2 = new Reclamacao(null,"Preços totalmente errados", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p2);
 		Reclamacao r3 = new Reclamacao(null,"Mal atendimento", Calendar.getInstance(), ReclamacaoStatus.AGUARDANDO, p1);
@@ -82,6 +100,16 @@ public class DBService {
 		Cotacao cot3 = Cotacao.builder().preco(19.35).dataHora(Calendar.getInstance()).combustivel(c2).build();
 	
 		cotacaoRepository.saveAll(Arrays.asList(cot1, cot2, cot3));
+		
+		CombustivelPosto cp1 = CombustivelPosto.builder().cotacao(cot1).posto(p1).combustivel(c1).tipo(tc1)
+			.build();
+		CombustivelPosto cp2 = CombustivelPosto.builder().cotacao(cot2).posto(p2).combustivel(c2).tipo(tc2)
+			.build();
+		CombustivelPosto cp3 = CombustivelPosto.builder().cotacao(cot3).posto(p3).combustivel(c3).tipo(tc3)
+			.build();
+
+		combustivelPostoRepository.saveAll(Arrays.asList(cp1, cp2, cp3));
+		
 	}
 
 }

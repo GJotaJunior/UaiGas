@@ -36,6 +36,7 @@ public class Posto implements Serializable {
 	private String descricao;
 	private PostoStatus status;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "posto", cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
