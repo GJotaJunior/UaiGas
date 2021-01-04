@@ -3,6 +3,7 @@ package com.uai.uaigas.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -55,6 +56,10 @@ public class Usuario implements Serializable {
 
     public void addPerfil(PerfilEnum perfil) {
 	perfis.add(perfil.getCod());
+    }
+
+    public Set<PerfilEnum> getPerfis() {
+	return perfis.stream().map(x -> PerfilEnum.toEnum(x)).collect(Collectors.toSet());
     }
 
 }

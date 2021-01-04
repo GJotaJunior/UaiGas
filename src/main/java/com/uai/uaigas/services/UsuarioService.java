@@ -46,12 +46,6 @@ public class UsuarioService {
 	return new UsuarioDTO(entity);
     }
     
-    public UsuarioDTO findByEmail(String email) {
-	Optional<Usuario> obj = repository.findByEmail(email);
-	Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(email));
-	return new UsuarioDTO(entity);
-    }
-    
     public UsuarioDTO findByEmailAndPassword(String email, String password) {
 	Optional<Usuario> obj = repository.findByEmailAndSenha(email, password);
 	Usuario entity = obj.orElseThrow(() -> new DatabaseException("O email e/ou senha não estão corretos!"));
@@ -108,7 +102,7 @@ public class UsuarioService {
     }
 
     public void sendNewPassword(String email) {
-	Usuario usuario = findByEmail(email).toEntity();
+	Usuario usuario = repository.findByEmail(email);
 	if (usuario == null) throw new ResourceNotFoundException(email);
 	
 	String newPassword = newPassword();
