@@ -2,6 +2,8 @@ package com.uai.uaigas.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.uai.uaigas.entities.Combustivel;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ public class CombustivelDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String nome;
 
 	public CombustivelDTO(Combustivel combustivel) {

@@ -2,6 +2,9 @@ package com.uai.uaigas.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.uai.uaigas.entities.Combustivel;
 import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Cotacao;
@@ -17,10 +20,15 @@ public class CombustivelPostoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String nome;
+	@NotNull
 	private TipoCombustivel tipoCombustivel;
+	@NotNull
 	private Combustivel combustivel;
+	@NotNull
 	private Cotacao cotacao;
+	@NotNull
 	private Posto posto;
 
 	public CombustivelPostoDTO(CombustivelPosto combustivelPosto) {

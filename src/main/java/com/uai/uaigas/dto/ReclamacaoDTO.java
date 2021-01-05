@@ -2,6 +2,9 @@ package com.uai.uaigas.dto;
 
 import java.util.Calendar;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
@@ -15,9 +18,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReclamacaoDTO {
 	private Long id;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String descricao;
+	@NotNull
 	private Calendar dataHora;
+	@NotNull
 	private ReclamacaoStatus reclamacaoStatus;
+	@NotNull
 	private Posto posto;
 	
 	public ReclamacaoDTO(Reclamacao entity) {

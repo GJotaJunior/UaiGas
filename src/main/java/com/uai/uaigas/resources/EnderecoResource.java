@@ -3,6 +3,8 @@ package com.uai.uaigas.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class EnderecoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<EnderecoDTO> insert(@RequestBody EnderecoDTO dto) {
+	public ResponseEntity<EnderecoDTO> insert(@Valid @RequestBody EnderecoDTO dto) {
 		EnderecoDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(newDto.getId()).toUri();
@@ -52,7 +54,7 @@ public class EnderecoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<EnderecoDTO> update(@PathVariable Long id, @RequestBody EnderecoDTO dto) {
+	public ResponseEntity<EnderecoDTO> update(@PathVariable Long id, @Valid @RequestBody EnderecoDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
