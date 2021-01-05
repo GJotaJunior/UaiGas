@@ -2,6 +2,8 @@ package com.uai.uaigas.dto;
 
 import java.util.Calendar;
 
+import javax.validation.constraints.NotNull;
+
 import com.uai.uaigas.entities.Combustivel;
 import com.uai.uaigas.entities.Cotacao;
 
@@ -13,8 +15,11 @@ import lombok.Data;
 public class CotacaoDTO {
 
     private Long id;
+    @NotNull
     private Double preco;
+    @NotNull
     private Calendar dataHora;
+    @NotNull
     private Combustivel combustivel;
 
     public CotacaoDTO(Cotacao cotacao) {

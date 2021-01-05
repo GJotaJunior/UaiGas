@@ -3,6 +3,8 @@ package com.uai.uaigas.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class CombustivelPostoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CombustivelPostoDTO> insert(@RequestBody CombustivelPostoDTO dto) {
+	public ResponseEntity<CombustivelPostoDTO> insert(@Valid @RequestBody CombustivelPostoDTO dto) {
 		CombustivelPostoDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(newDto.getId()).toUri();
@@ -52,7 +54,7 @@ public class CombustivelPostoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CombustivelPostoDTO> update(@PathVariable Long id, @RequestBody CombustivelPostoDTO dto) {
+	public ResponseEntity<CombustivelPostoDTO> update(@PathVariable Long id, @Valid @RequestBody CombustivelPostoDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}

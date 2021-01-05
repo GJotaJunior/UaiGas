@@ -2,6 +2,9 @@ package com.uai.uaigas.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
@@ -16,7 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class PostoDTO {
 	private Long id;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String descricao;
+	@NotNull
 	private PostoStatus status;
 	private List<Reclamacao> reclamacoes;
 	private List<CombustivelPosto> combustiveis;

@@ -3,6 +3,8 @@ package com.uai.uaigas.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class ReclamacaoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReclamacaoDTO> insert(@RequestBody ReclamacaoDTO dto) {
+	public ResponseEntity<ReclamacaoDTO> insert(@Valid @RequestBody ReclamacaoDTO dto) {
 		ReclamacaoDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(newDto.getId()).toUri();
@@ -53,7 +55,7 @@ public class ReclamacaoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ReclamacaoDTO> update(@PathVariable Long id, @RequestBody ReclamacaoDTO dto) {
+	public ResponseEntity<ReclamacaoDTO> update(@PathVariable Long id, @Valid @RequestBody ReclamacaoDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}

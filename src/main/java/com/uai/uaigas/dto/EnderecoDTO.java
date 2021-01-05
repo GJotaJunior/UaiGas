@@ -2,6 +2,9 @@ package com.uai.uaigas.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.uai.uaigas.entities.Endereco;
 import com.uai.uaigas.entities.Posto;
 
@@ -14,15 +17,21 @@ public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String logradouro;
 	private Integer numero;
 	private String complemento;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String bairro;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String cidade;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String estado;
+	@NotBlank(message = "Preenchimento obrigatorio")
 	private String cep;
 	private Float latitude;
 	private Float longitude;
+	@NotNull
 	private Posto posto;
 	
 

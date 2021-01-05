@@ -3,6 +3,8 @@ package com.uai.uaigas.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class CotacaoResource {
     }
 
     @PostMapping
-    public ResponseEntity<CotacaoDTO> insert(@RequestBody CotacaoDTO dto) {
+    public ResponseEntity<CotacaoDTO> insert(@Valid @RequestBody CotacaoDTO dto) {
 	CotacaoDTO newDto = service.insert(dto);
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 	return ResponseEntity.created(uri).body(newDto);
@@ -52,7 +54,7 @@ public class CotacaoResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CotacaoDTO> update(@PathVariable Long id, @RequestBody CotacaoDTO dto) {
+    public ResponseEntity<CotacaoDTO> update(@PathVariable Long id, @Valid @RequestBody CotacaoDTO dto) {
 	// NAO IMPLEMENTADO DEVIDO A REGRA DE NEGOCIO
 	return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).build();
     }

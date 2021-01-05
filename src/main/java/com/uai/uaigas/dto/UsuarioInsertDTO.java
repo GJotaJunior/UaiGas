@@ -1,31 +1,30 @@
 package com.uai.uaigas.dto;
 
+import java.io.Serializable;
+
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.uai.uaigas.entities.Usuario;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-public class UsuarioInsertDTO extends UsuarioDTO {
+@Data
+public class UsuarioInsertDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Getter
-    @Setter
+    private Long id;
+    @NotBlank(message = "Preenchimento obrigatorio")
+    @Length(min = 5, max = 60, message = "O campo deve ter entre 5 e 60 caracteres")
+    private String nome;
+    @NotBlank(message = "Preenchimento obrigatorio")
+    private String email;
+    @NotBlank(message = "Preenchimento obrigatorio")
     private String senha;
 
-    public UsuarioInsertDTO(Usuario usuario) {
-	super(usuario);
-	this.senha = usuario.getSenha();
-    }
-
-    public UsuarioInsertDTO(Long id, String nome, String email, String fotoUrl, boolean admin, String senha) {
-	super(id, nome, email, fotoUrl);
-	this.senha = senha;
-    }
-
-    @Override
     public Usuario toEntity() {
-	return Usuario.builder().id(getId()).nome(getNome()).email(getEmail()).fotoUrl(getFotoUrl()).senha(senha)
-		.build();
+	return Usuario.builder().id(id).nome(nome).email(email).fotoUrl(null).senha(senha).build();
     }
 
 }
