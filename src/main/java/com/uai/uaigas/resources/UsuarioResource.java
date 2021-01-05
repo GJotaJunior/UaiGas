@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.uai.uaigas.dto.EmailDTO;
+import com.uai.uaigas.dto.LoginDTO;
 import com.uai.uaigas.dto.UsuarioDTO;
 import com.uai.uaigas.dto.UsuarioInsertDTO;
 import com.uai.uaigas.services.UsuarioService;
@@ -56,7 +57,7 @@ public class UsuarioResource {
     }
     
     @PostMapping(value = "/login")
-    public ResponseEntity<UsuarioDTO> login(@Valid @RequestBody UsuarioInsertDTO dto) {
+    public ResponseEntity<UsuarioDTO> login(@Valid @RequestBody LoginDTO dto) {
 	UsuarioDTO newDto = service.findByEmailAndPassword(dto.getEmail(), dto.getSenha());
 	return ResponseEntity.ok().body(newDto);
     }
