@@ -70,12 +70,12 @@ public class DBService {
 		
 		combustivelRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-		
+		Usuario u0 = Usuario.builder().nome("admin").email("admin@uaigas.com").senha("admin").admin(true).build();
 		Usuario u1 = Usuario.builder().nome("Jose").email("jose@gmail.com").senha("123456").admin(false).build();
 		Usuario u2 = Usuario.builder().nome("Maria").email("maria@gmail.com").senha("123456").admin(false).build();
 		Usuario u3 = Usuario.builder().nome("Carlos").email("carlos@gmail.com").senha("123456").admin(false).build();
 		
-		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
+		usuarioRepository.saveAll(Arrays.asList(u0, u1, u2, u3));
 		
 		Cotacao cot1 = Cotacao.builder().preco(20.0).dataHora(Calendar.getInstance()).combustivel(c3).build();
 		Cotacao cot2 = Cotacao.builder().preco(17.0).dataHora(Calendar.getInstance()).combustivel(c1).build();
