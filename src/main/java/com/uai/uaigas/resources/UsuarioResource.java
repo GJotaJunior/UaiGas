@@ -70,6 +70,7 @@ public class UsuarioResource {
     @PutMapping
     public ResponseEntity<UsuarioDTO> update(@Valid @RequestBody UsuarioInsertDTO dto) {
 	UsuarioDTO usuario = service.findByEmailAndPassword(dto.getEmail(), dto.getSenha());
+	dto.setId(usuario.getId());
 	usuario = service.update(dto);
 	return ResponseEntity.ok().body(usuario);
     }
