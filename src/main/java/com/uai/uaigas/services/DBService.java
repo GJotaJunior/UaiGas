@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uai.uaigas.entities.Combustivel;
+import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Cotacao;
 import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
@@ -14,6 +15,7 @@ import com.uai.uaigas.entities.TipoCombustivel;
 import com.uai.uaigas.entities.Usuario;
 import com.uai.uaigas.entities.enums.PostoStatus;
 import com.uai.uaigas.entities.enums.ReclamacaoStatus;
+import com.uai.uaigas.repository.CombustivelPostoRepository;
 import com.uai.uaigas.repository.CombustivelRepository;
 import com.uai.uaigas.repository.CotacaoRepository;
 import com.uai.uaigas.repository.PostoRepository;
@@ -41,6 +43,9 @@ public class DBService {
 	
 	@Autowired
 	private CotacaoRepository cotacaoRepository;
+	
+	@Autowired
+	private CombustivelPostoRepository combustivelPostoRepository;
 
 	public void InstantiateDatabase() {
 		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO);
@@ -77,9 +82,15 @@ public class DBService {
 		
 		usuarioRepository.saveAll(Arrays.asList(u0, u1, u2, u3));
 		
-		Cotacao cot1 = Cotacao.builder().preco(20.0).dataHora(Calendar.getInstance()).combustivel(c3).build();
-		Cotacao cot2 = Cotacao.builder().preco(17.0).dataHora(Calendar.getInstance()).combustivel(c1).build();
-		Cotacao cot3 = Cotacao.builder().preco(19.35).dataHora(Calendar.getInstance()).combustivel(c2).build();
+		CombustivelPosto cp1 = CombustivelPosto.builder().tipo(tc1).combustivel(c1).posto(p1).build();
+		CombustivelPosto cp2 = CombustivelPosto.builder().tipo(tc2).combustivel(c2).posto(p2).build();
+		CombustivelPosto cp3 = CombustivelPosto.builder().tipo(tc3).combustivel(c3).posto(p3).build();
+
+		combustivelPostoRepository.saveAll(Arrays.asList(cp1, cp2, cp3));
+		
+		Cotacao cot1 = Cotacao.builder().preco(20.0).dataHora(Calendar.getInstance()).combustivelPosto(cp1).build();
+		Cotacao cot2 = Cotacao.builder().preco(17.0).dataHora(Calendar.getInstance()).combustivelPosto(cp2).build();
+		Cotacao cot3 = Cotacao.builder().preco(19.35).dataHora(Calendar.getInstance()).combustivelPosto(cp3).build();
 	
 		cotacaoRepository.saveAll(Arrays.asList(cot1, cot2, cot3));
 	}

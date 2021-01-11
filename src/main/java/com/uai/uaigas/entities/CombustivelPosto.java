@@ -1,6 +1,8 @@
 package com.uai.uaigas.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,8 +45,9 @@ public class CombustivelPosto implements Serializable {
     @JoinColumn(name = "posto_id")
     private Posto posto;
 
-	@ManyToOne
-    @JoinColumn(name = "cotacao_id")
-	private Cotacao cotacao;
+	@JsonIgnore
+	@OneToMany(mappedBy = "combustivelPosto")
+	@Builder.Default
+	private List<Cotacao> cotacoes = new ArrayList<>();
 
 }

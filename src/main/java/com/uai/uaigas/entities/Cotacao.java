@@ -32,7 +32,7 @@ public class Cotacao implements Serializable {
     private Calendar dataHora;
 
     @ManyToOne
-    @JoinColumn(name = "combustivel_id")
-    private Combustivel combustivel;
+    @JoinColumn(name = "combustivel_posto_id")
+    private CombustivelPosto combustivelPosto;
 
 }

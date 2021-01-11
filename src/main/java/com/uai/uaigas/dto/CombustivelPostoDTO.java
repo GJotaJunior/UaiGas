@@ -1,6 +1,7 @@
 package com.uai.uaigas.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class CombustivelPostoDTO implements Serializable {
 	@NotNull
 	private Combustivel combustivel;
 	@NotNull
-	private Cotacao cotacao;
+	private List<Cotacao> cotacoes;
 	@NotNull
 	private Posto posto;
 
@@ -35,11 +36,11 @@ public class CombustivelPostoDTO implements Serializable {
 		this.id = combustivelPosto.getId();
 		this.tipoCombustivel = combustivelPosto.getTipo();
 		this.combustivel = combustivelPosto.getCombustivel();
-		this.cotacao = combustivelPosto.getCotacao();
+		this.cotacoes = combustivelPosto.getCotacoes();
 		this.posto = combustivelPosto.getPosto();
 	}
 
 	public CombustivelPosto toEntity() {
-		return CombustivelPosto.builder().id(id).tipo(tipoCombustivel).cotacao(cotacao).posto(posto).combustivel(combustivel).build();
+		return CombustivelPosto.builder().id(id).tipo(tipoCombustivel).cotacoes(cotacoes).posto(posto).combustivel(combustivel).build();
 	}
 }

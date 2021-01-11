@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import javax.validation.constraints.NotNull;
 
-import com.uai.uaigas.entities.Combustivel;
+import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Cotacao;
 
 import lombok.AllArgsConstructor;
@@ -20,17 +20,17 @@ public class CotacaoDTO {
     @NotNull
     private Calendar dataHora;
     @NotNull
-    private Combustivel combustivel;
+    private CombustivelPosto combustivelPosto;
 
     public CotacaoDTO(Cotacao cotacao) {
 	this.id = cotacao.getId();
 	this.preco = cotacao.getPreco();
 	this.dataHora = cotacao.getDataHora();
-	this.combustivel = cotacao.getCombustivel();
+	this.combustivelPosto = cotacao.getCombustivelPosto();
     }
 
     public Cotacao toEntity() {
-	return Cotacao.builder().id(id).preco(preco).dataHora(dataHora).combustivel(combustivel).build();
+	return Cotacao.builder().id(id).preco(preco).dataHora(dataHora).combustivelPosto(combustivelPosto).build();
     }
 
 }
