@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.uai.uaigas.entities.Combustivel;
 import com.uai.uaigas.entities.CombustivelPosto;
 import com.uai.uaigas.entities.Cotacao;
+import com.uai.uaigas.entities.Endereco;
 import com.uai.uaigas.entities.Posto;
 import com.uai.uaigas.entities.Reclamacao;
 import com.uai.uaigas.entities.TipoCombustivel;
@@ -18,6 +19,7 @@ import com.uai.uaigas.entities.enums.ReclamacaoStatus;
 import com.uai.uaigas.repository.CombustivelPostoRepository;
 import com.uai.uaigas.repository.CombustivelRepository;
 import com.uai.uaigas.repository.CotacaoRepository;
+import com.uai.uaigas.repository.EnderecoRepository;
 import com.uai.uaigas.repository.PostoRepository;
 import com.uai.uaigas.repository.ReclamacaoRepository;
 import com.uai.uaigas.repository.TipoCombustivelRepository;
@@ -46,6 +48,9 @@ public class DBService {
 	
 	@Autowired
 	private CombustivelPostoRepository combustivelPostoRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public void InstantiateDatabase() {
 		Posto p1 = new Posto(null, "Posto Ipiranga", PostoStatus.ATIVO);
@@ -93,6 +98,15 @@ public class DBService {
 		Cotacao cot3 = Cotacao.builder().preco(19.35).dataHora(Calendar.getInstance()).combustivelPosto(cp3).build();
 	
 		cotacaoRepository.saveAll(Arrays.asList(cot1, cot2, cot3));
+		
+		Endereco e1 = new Endereco(null, "Av. Afonso Pena", 1111, null, "Centro", "Uberlândia", "MG", "38400-706",
+				(float) -18.9161746, (float) -48.2762242, p1);
+		Endereco e2 = new Endereco(null, "Av. Prof. José Inácio de Souza", 361, null, "Brasil", "Uberlândia", "MG", "38400-732",
+				(float) -18.8914335, (float) -48.2632962, p2);
+		Endereco e3 = new Endereco(null, "Av. Cel. Teodolino Pereira Araújo", 1150, null, "Centro", "Araguari", "MG", "38440-062",
+				(float) -18.6505460, (float) -48.1934125, p3);
+		
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 	}
 
 }

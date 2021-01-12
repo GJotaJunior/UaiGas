@@ -33,10 +33,16 @@ public class EnderecoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<EnderecoDTO> findById(@PathVariable Long id) {
-		EnderecoDTO dto = service.findById(id);
-		return ResponseEntity.ok().body(dto);
+	/*
+	 * @GetMapping(value = "/{id}") public ResponseEntity<EnderecoDTO>
+	 * findById(@PathVariable Long id) { EnderecoDTO dto = service.findById(id);
+	 * return ResponseEntity.ok().body(dto); }
+	 */
+	
+	@GetMapping(value = "/{city}")
+	public ResponseEntity<List<EnderecoDTO>> findGasStationByCidade(@PathVariable String city) {
+		List<EnderecoDTO> list = service.findGasStationByCidade(city);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping

@@ -20,27 +20,32 @@ import com.uai.uaigas.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class EnderecoService {
-	
+
 	@Autowired
 	private EnderecoRepository repository;
-	
+
 	public List<EnderecoDTO> findAll() {
 		List<Endereco> list = repository.findAll();
 		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
 	}
-	
+
 	public EnderecoDTO findById(Long id) {
 		Optional<Endereco> obj = repository.findById(id);
 		Endereco entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new EnderecoDTO(entity);
 	}
-	
+
+	public List<EnderecoDTO> findGasStationByCidade(String city) {
+		List<Endereco> list = repository.findGasStationByCidade(city);
+		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
+	}
+
 	public EnderecoDTO insert(EnderecoDTO dto) {
 		Endereco entity = dto.toEntity();
 		entity = repository.save(entity);
 		return new EnderecoDTO(entity);
 	}
-	
+
 	@Transactional
 	public EnderecoDTO update(Long id, EnderecoDTO dto) {
 		try {
@@ -48,11 +53,11 @@ public class EnderecoService {
 			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new EnderecoDTO(entity);
-		} catch(EntityNotFoundException e) {
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
-	
+
 	private void updateData(Endereco entity, EnderecoDTO dto) {
 		entity.setLogradouro(dto.getLogradouro());
 		entity.setNumero(dto.getNumero());
@@ -66,10 +71,10 @@ public class EnderecoService {
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-		} catch(EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
-		} catch(DataIntegrityViolationException e) {
-			throw new DatabaseException(e.getMessage()); 
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
 		}
 	}
 }

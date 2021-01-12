@@ -30,9 +30,9 @@ public class PostoService {
     }
 
     public PostoDTO findById(Long id) {
-	Optional<Posto> obj = repository.findById(id);
-	Posto entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
-	return new PostoDTO(entity);
+		Optional<Posto> obj = repository.findById(id);
+		Posto entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return new PostoDTO(entity);
     }
 
     public PostoDTO insert(PostoDTO dto) {
