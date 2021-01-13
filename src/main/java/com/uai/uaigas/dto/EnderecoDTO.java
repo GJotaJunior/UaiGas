@@ -46,9 +46,10 @@ public class EnderecoDTO implements Serializable {
 		this.latitude = endereco.getLatitude();
 		this.longitude = endereco.getLongitude();
 		this.posto = endereco.getPosto();
+		this.cidade = endereco.getCidade().toUpperCase();
 	}
 
 	public Endereco toEntity() {
-		return Endereco.builder().id(id).logradouro(logradouro).numero(numero).complemento(complemento).bairro(bairro).estado(estado).cep(cep).latitude(latitude).longitude(longitude).posto(posto).build();
+		return Endereco.builder().id(id).logradouro(logradouro).numero(numero).complemento(complemento).bairro(bairro).estado(estado).cep(cep).latitude(latitude).longitude(longitude).posto(posto).cidade(cidade).build();
 	}
 }
