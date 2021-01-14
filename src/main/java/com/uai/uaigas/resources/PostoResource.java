@@ -1,6 +1,7 @@
 package com.uai.uaigas.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.uai.uaigas.dto.EnderecoDTO;
 import com.uai.uaigas.dto.PostoDTO;
+import com.uai.uaigas.services.EnderecoService;
 import com.uai.uaigas.services.PostoService;
 
 @RestController
@@ -26,6 +29,9 @@ public class PostoResource {
 	
 	@Autowired
 	private PostoService service;
+	
+	@Autowired
+	private EnderecoService serviceEndereco;
 
 	@GetMapping
 	public ResponseEntity<List<PostoDTO>> findAll() {
@@ -37,6 +43,17 @@ public class PostoResource {
 	public ResponseEntity<PostoDTO> findById(@PathVariable Long id) {
 		PostoDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@GetMapping(value = "/endereco/{city}")
+	public ResponseEntity<List<PostoDTO>> findGasStationByCidade(@PathVariable String city) {
+		List<EnderecoDTO> listEndereco = serviceEndereco.findGasStationByCidade(city);
+		List<PostoDTO> listPosto = new ArrayList<PostoDTO>();
+		listEndereco.forEach(enderecodto -> {
+			Long id = enderecodto.getPosto().getId();
+			listPosto.add(service.findById(id));
+		});
+		return ResponseEntity.ok().body(listPosto);
 	}
 	
 	@PostMapping

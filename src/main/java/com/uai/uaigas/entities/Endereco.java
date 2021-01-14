@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +37,8 @@ public class Endereco implements Serializable {
     private String cep;
     private Float latitude;
     private Float longitude;
-
+    
+    @JsonIgnore
     @OneToOne
     private Posto posto;
 

@@ -23,42 +23,35 @@ import com.uai.uaigas.services.EnderecoService;
 @RestController
 @RequestMapping(value = "/endereco")
 public class EnderecoResource {
-	
+
 	@Autowired
 	private EnderecoService service;
 
 	@GetMapping
-	public ResponseEntity<List<EnderecoDTO>> findAll() {	
+	public ResponseEntity<List<EnderecoDTO>> findAll() {
 		List<EnderecoDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
-	/*
-	 * @GetMapping(value = "/{id}") public ResponseEntity<EnderecoDTO>
-	 * findById(@PathVariable Long id) { EnderecoDTO dto = service.findById(id);
-	 * return ResponseEntity.ok().body(dto); }
-	 */
-	
-	@GetMapping(value = "/{city}")
-	public ResponseEntity<List<EnderecoDTO>> findGasStationByCidade(@PathVariable String city) {
-		List<EnderecoDTO> list = service.findGasStationByCidade(city);
-		return ResponseEntity.ok().body(list);
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<EnderecoDTO> findById(@PathVariable Long id) {
+		EnderecoDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<EnderecoDTO> insert(@Valid @RequestBody EnderecoDTO dto) {
 		EnderecoDTO newDto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(newDto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDto);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<EnderecoDTO> update(@PathVariable Long id, @Valid @RequestBody EnderecoDTO dto) {
 		dto = service.update(id, dto);
